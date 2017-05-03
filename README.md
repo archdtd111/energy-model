@@ -16,7 +16,7 @@ Go on with reading to get information about the detailed homework tasks.
 1. sharing 
 	1. push the branch to your fork, go back to GitHub and open a pull request for each from your branch in your fork to the master branch in the original project
 	1. send a mail to nipa@codefx.org with a link to the pull request
-	1. keep an eye on the development of your pull request. Respond to questions or comments by the community.
+	1. keep an eye on the development of your pull request. Respond to questions or comments by the community. Celebrate when your pull request is merged.
 	
 #### This time you should choose at least **two issues** you want to work on.  
 Make a pull request of the two issues until the **deadline on Monday, 1st of Mai in 2017**.
