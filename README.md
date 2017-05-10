@@ -20,4 +20,4 @@ Go on with reading to get information about the detailed homework tasks.
 
 ## Source
 The source code of the project *energy-model* is a Kotlin-File named Main.kt.  
-You can access the file in the project folder by clicking [here](src/main/kotlin).
+You can access the file in the project folder by clicking [here](src/org.codefx.demo.bingen.energy_model.main/kotlin).
