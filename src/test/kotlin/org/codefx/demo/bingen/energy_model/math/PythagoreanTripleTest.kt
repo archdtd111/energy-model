@@ -3,7 +3,7 @@ package org.codefx.demo.bingen.energy_model.math
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class PythagoreanTriple {
+class PythagoreanTripleTest {
 
     @Test
     fun isPythagoreanTriple1() {
