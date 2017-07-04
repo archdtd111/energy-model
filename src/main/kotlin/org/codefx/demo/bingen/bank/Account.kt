@@ -1,4 +1,4 @@
-package org.codefx.demo.bingen.energy_model.bank
+package org.codefx.demo.bingen.bank
 
 class Account(var balance: Int, var limit: Int) {
 
@@ -12,6 +12,7 @@ class Account(var balance: Int, var limit: Int) {
         balance += amount
         return amount
     }
+
     fun withdraw(amount: Int): Int {
         // only positive amounts are allowed
         if (amount < 0) {
