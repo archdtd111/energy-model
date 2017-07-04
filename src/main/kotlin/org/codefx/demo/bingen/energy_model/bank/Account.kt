@@ -1,4 +1,4 @@
-package org.codefx.demo.bingen.energy_model
+package org.codefx.demo.bingen.energy_model.bank
 
 class Account(var balance: Int, var limit: Int) {
 
