@@ -1,32 +1,33 @@
 package org.codefx.demo.bingen.energy_model.math
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TriangularNumberTest {
 
     @Test
     fun isTriangularNumber10() {
-        val test = isTriangularNumber(10)
-        assertEquals(true, test)
+        val isTriangular = isTriangularNumber(10)
+        assertTrue(isTriangular)
     }
 
     @Test
     fun isTriangularNumberMinus10() {
-        val test = isTriangularNumber(-10)
-        assertEquals(false, test)
+        val isTriangular = isTriangularNumber(-10)
+        assertFalse(isTriangular)
     }
 
     @Test
     fun isTriangularNumber20() {
-        val test = isTriangularNumber(20)
-        assertEquals(false, test)
+        val isTriangular = isTriangularNumber(20)
+        assertFalse(isTriangular)
     }
 
     @Test
     fun isTriangularNumber1225() {
-        val test = isTriangularNumber(1225)
-        assertEquals(true, test)
+        val isTriangular = isTriangularNumber(1225)
+        assertTrue(isTriangular)
     }
 
 

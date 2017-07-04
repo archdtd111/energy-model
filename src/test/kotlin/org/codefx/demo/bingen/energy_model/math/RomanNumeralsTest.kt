@@ -6,13 +6,13 @@ import org.junit.Test
 class RomanNumeralsTest {
 
     /*
-     * ALL OF THESE TESS FAIL BECAUSE 'RomanNumerals' IS INCOMPLETE.
+     * ALL OF THESE TESTS FAIL BECAUSE 'RomanNumerals' IS INCOMPLETE.
      * CHANGE IT SO THESE TESTS PASS; IT SUFFICES TO FO UP TO 50 / "L"
      *
      * FOR BACKGROUND ON ROMAN NUMERALS AND HOW TO CONVERT TO THEM:
      * http://turner.faculty.swau.edu/mathematics/materialslibrary/roman/
      *
-     * To make your live easier by foregoing the compaction step,
+     * To make your life easier by foregoing the compaction step,
      * include 40/XL, 9/IX, and 4/IV in the list of replacements.
      *
      * Remember that strings can be concatenated with a simple + operation.

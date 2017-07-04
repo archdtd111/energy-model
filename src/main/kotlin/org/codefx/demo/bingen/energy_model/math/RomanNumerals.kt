@@ -1,51 +1,36 @@
 package org.codefx.demo.bingen.energy_model.math
 
-fun asRoman(n: Int): String {                               // function --> declaration
-    var decimalRemainder = n                                // variable declaration
+fun asRoman(n: Int): String {
+    if (n < 1 || 50 < n) {
+        return "Invalid value $n for roman numerals."
+    }
+
+    var decimalRemainder = n
     var romanOutput = ""
-    while (decimalRemainder >= 1) {                         // loop for the construction of Roman numerals
 
-        var Loop = ""
-
-        if (decimalRemainder >= 51 ) {                      // system limits for numbers up to 50
-            return "invalid value for roman numerals"
-        } else {
-            if (decimalRemainder == 50 && Loop == "") {     // If-conditions for each relevant number
-                romanOutput += "L"
-                decimalRemainder -= 50
-                Loop += "1"
-            }
-            if (decimalRemainder >= 40 && Loop == "") {
-                romanOutput += "XL"
-                decimalRemainder -= 40
-                Loop += "1"
-            }
-            if (decimalRemainder >= 10 && Loop == "") {
-                romanOutput += "X"
-                decimalRemainder -= 10
-                Loop += "1"
-            }
-            if (decimalRemainder >= 9 && Loop == "") {
-                romanOutput += "IX"
-                decimalRemainder -= 9
-                Loop += "1"
-            }
-            if (decimalRemainder >= 5 && Loop == "") {
-                romanOutput += "V"
-                decimalRemainder -= 5
-                Loop += "1"
-            }
-            if (decimalRemainder >= 4 && Loop == "") {
-                romanOutput += "IV"
-                decimalRemainder -= 4
-                Loop += "1"
-            }
-            if (decimalRemainder >= 1 && Loop == "") {
-                romanOutput += "I"
-                decimalRemainder -= 1
-                Loop += "1"
-            }
+    while (decimalRemainder >= 1) {
+        if (decimalRemainder == 50) {
+            romanOutput += "L"
+            decimalRemainder -= 50
+        } else if (decimalRemainder >= 40) {
+            romanOutput += "XL"
+            decimalRemainder -= 40
+        } else if (decimalRemainder >= 10) {
+            romanOutput += "X"
+            decimalRemainder -= 10
+        } else if (decimalRemainder >= 9) {
+            romanOutput += "IX"
+            decimalRemainder -= 9
+        } else if (decimalRemainder >= 5) {
+            romanOutput += "V"
+            decimalRemainder -= 5
+        } else if (decimalRemainder >= 4) {
+            romanOutput += "IV"
+            decimalRemainder -= 4
+        } else if (decimalRemainder >= 1) {
+            romanOutput += "I"
+            decimalRemainder -= 1
         }
     }
-    return romanOutput                                      // output --> return of the calculated Roman number
+    return romanOutput
 }
