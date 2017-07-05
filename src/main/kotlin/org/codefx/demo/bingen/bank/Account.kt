@@ -1,36 +1,44 @@
 package org.codefx.demo.bingen.bank
 
-class Account(var balance: Int, var limit: Int) {
+/**
+ * An account is an entity (i.e. regular class), which has both a balance and a limit.
+ *
+ * Note that [openingDeposit] and [limit] are arguments to the constructor
+ * but not a fields (i.e. they are unavailable after an instance was constructed).
+ * To keep them around, we declare two fields [balance] and [limit] that we assign
+ * during construction.
+ */
+class Account(openingDeposit: Money = Money(0), limit: Balance = Balance(0)) {
 
-    fun deposit(amount: Int): Int {
-        // only positive amounts are allowed
-        if (amount < 0) {
-            return 0
-        }
+    var balance = Balance(openingDeposit)
+    var limit = limit
 
+    fun deposit(amount: Money): Money {
         // deposit amount
-        balance += amount
+        balance = balance.plus(amount)
         return amount
     }
 
-    fun withdraw(amount: Int): Int {
-        // only positive amounts are allowed
-        if (amount < 0) {
-            return 0
+    fun withdraw(amount: Money): Money {
+        if (!balance.minus(amount).equalOrMoreThan(limit)) {
+            // insufficient balance; pay out 0
+            return Money(0, Currency.EURO)
         }
 
-        if (balance - amount >= limit) {
-            // balance suffices, pay out the money
-            balance -= amount
-            return amount
-        } else {
-            // insufficient balance; pay out 0
-            return 0
-        }
+        // balance suffices, pay out the money
+        balance = balance.minus(amount)
+        return amount
     }
 
-    fun currentBalance(): Int {
-        return balance
+    fun withdrawRemaining(): Money {
+        if (balance.isOverdrawn()) {
+            // mo money left; pay out 0
+            return Money(0, Currency.EURO)
+        }
+
+        // balance suffices, pay all out the money
+        val remainingAmount = Money(balance)
+        return withdraw(remainingAmount)
     }
 
 }
