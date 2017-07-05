@@ -1,4 +1,4 @@
-package org.codefx.demo.bingen.energy_model.math
+package org.codefx.demo.bingen.math
 
 fun isPythagoreanTriple (n_1 : Int , n_2 : Int, n_3: Int) : Boolean {
     // just positive numbers are possible

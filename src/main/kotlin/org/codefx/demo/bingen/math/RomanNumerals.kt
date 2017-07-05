@@ -1,4 +1,4 @@
-package org.codefx.demo.bingen.energy_model.math
+package org.codefx.demo.bingen.math
 
 fun asRoman(n: Int): String {
     if (n < 1 || 50 < n) {
