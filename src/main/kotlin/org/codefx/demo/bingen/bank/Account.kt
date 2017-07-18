@@ -41,4 +41,8 @@ class Account(openingDeposit: Money = Money(0), limit: Balance = Balance(0)) {
         return withdraw(remainingAmount)
     }
 
+    override fun toString(): String {
+        return "Account(balance=$balance, limit=$limit)"
+    }
+
 }

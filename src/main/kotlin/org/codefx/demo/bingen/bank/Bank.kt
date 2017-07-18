@@ -88,4 +88,12 @@ class Bank {
         return transferBetweenAccounts(fromAccount, toAccount, amount)
     }
 
+    override fun toString(): String {
+        var string = "Bank:"
+        for (customer in customers) {
+            string += "\n\t$customer"
+        }
+        return string
+    }
+
 }

@@ -44,6 +44,11 @@ data class Balance(val centAmount: Int, val currency: Currency = Currency.EURO) 
         return this.centAmount < 0
     }
 
+    override fun toString(): String {
+        return "$centAmount ${currency}Ct)"
+    }
+
+
 }
 
 enum class Currency {
