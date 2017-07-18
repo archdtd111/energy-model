@@ -1,5 +1,7 @@
 package org.codefx.demo.bingen.bank
 
+import org.codefx.demo.bingen.NullSafeComparator
+
 class Bank {
 
     /*
@@ -90,10 +92,22 @@ class Bank {
 
     override fun toString(): String {
         var string = "Bank:"
-        for (customer in customers) {
+        // note that customers.sortWith sorts the customers list
+        // whereas customers.sortedWith returns a new list that is sorted,
+        // i.e. customers remains unchanged
+        for (customer in customers.sortedWith(CustomerByNameComparator())) {
             string += "\n\t$customer"
         }
         return string
+    }
+
+}
+
+class CustomerByNameComparator: NullSafeComparator<Customer> {
+
+    override fun compareNonNull(o1: Customer, o2: Customer): Int {
+        // to compare customers by name we can fall back to String's compareTo method
+        return o1.name.compareTo(o2.name)
     }
 
 }
