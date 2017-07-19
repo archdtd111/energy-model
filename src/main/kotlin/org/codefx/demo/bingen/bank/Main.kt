@@ -8,15 +8,32 @@ import com.univocity.parsers.csv.CsvWriterSettings
 import org.codefx.demo.bingen.FileAccess
 
 /*
- * TODO #3: Use the bank
- *
- * Create a bank, some customers, and accounts and transfer some money back and forth.
- *
  * TODO #5: Read/write the bank
  *
  * Use the readBankFromCsv and writeBankToCsv methods to read/write the bank.
  * Depending on the other tasks, it is possible that the code needs to be changed.
  */
+
+fun main(args: Array<String>) {
+    val bank = Bank()
+
+    val john = bank.newCustomer("John Doe")
+    val jane = bank.newCustomer("Jane Doe")
+    val jennifer = bank.newCustomer("Jennifer Doe")
+
+    bank.deposit(john.defaultAccount, Money(3500))
+    bank.deposit(jane.defaultAccount, Money(3500))
+    bank.deposit(jennifer.defaultAccount, Money(50))
+
+    println(bank)
+
+    val savings = bank.openAccount(jane, limit = Balance(-5000))
+    bank.transferBetweenAccounts(john.defaultAccount, savings, Money(1000))
+    bank.transferBetweenAccounts(jane.defaultAccount, savings, Money(1500))
+
+    println(bank)
+    println(savings)
+}
 
 private fun readBankFromCsv(fileName: String): Bank {
     val settings = CsvParserSettings()
