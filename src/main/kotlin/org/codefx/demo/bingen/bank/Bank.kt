@@ -4,52 +4,57 @@ import org.codefx.demo.bingen.NullSafeComparator
 
 class Bank {
 
-    /*
-     * TODO #4: improve [Bank]
-     *
-     * Currently the bank hands out accounts (e.g. [openAccount] returns an [Account]).
-     * That's weird because it allows customers to interact directly with the account
-     * without going through the bank.
-     *
-     * Instead of acting on [Account] entities all methods should receive and return
-     * [AccountNumber] values (i.e. data classes). Before starting to write any code
-     * consider carefully:
-     *
-     *  - what should the [AccountNumber] value class have as fields
-     *    (think about what your account number looks like but keep it simple)
-     *  - who needs to know about the account numbers? the account? the customer? the bank?
-     *  - given an account number how does the bank get the corresponding account
-     *    (two ideas: collect all accounts in a map[1] or put them all in the list
-     *    and search through that)
-     *  - if you have any problems, open a PR with what you have
-     *
-     * [1] https://www.youtube.com/watch?v=FUqD6srpuPY
-     */
-
     val customers: MutableList<Customer> = mutableListOf()
+    val accounts: MutableMap<AccountNumber, Account> = mutableMapOf()
 
-    fun openAccount(customer: Customer, openingDeposit: Money = Money(0), limit: Balance = Balance(0)): Account {
+    var nextAccountNumber = 1
+
+    fun createAccountNumber(): AccountNumber {
+        val accountNumber = AccountNumber("$nextAccountNumber")
+        nextAccountNumber += 1
+        return accountNumber
+    }
+
+    fun createAccountAndNumber(openingDeposit: Money = Money(0), limit: Balance = Balance(0)): AccountNumber {
+        val newNumber = createAccountNumber()
+        val newAccount = Account(openingDeposit, limit)
+        accounts.put(newNumber, newAccount)
+        return newNumber
+    }
+
+    fun getAccountForNumber(number: AccountNumber): Account {
+        if (!accounts.containsKey(number)) {
+            println("!! ACCOUNT NUMBER UNKNOWN TO THIS BANK")
+            throw IllegalArgumentException()
+        }
+
+        return accounts.get(number)!!
+    }
+
+    fun openAccount(customer: Customer, openingDeposit: Money = Money(0), limit: Balance = Balance(0)): AccountNumber {
         if (!customers.contains(customer)) {
             println("!! CUSTOMER DOES NOT BELONG TO THIS BANK")
         }
 
-        val newAccount = Account(openingDeposit, limit)
-        customer.accounts.add(newAccount)
-        return newAccount
+
+        val newNumber = createAccountAndNumber(openingDeposit, limit)
+        customer.accounts.add(newNumber)
+        return newNumber
     }
 
-    fun closeAccount(customer: Customer, account: Account): Money {
+    fun closeAccount(customer: Customer, number: AccountNumber): Money {
         if (!customers.contains(customer)) {
             println("!! CUSTOMER DOES NOT BELONG TO THIS BANK")
             return Money(0)
         }
 
+        val account = getAccountForNumber(number)
         if (account.balance.isOverdrawn()) {
             println("!! OVERDRAWN ACCOUNT CAN NOT BE CLOSED")
             return Money(0)
         }
 
-        customer.accounts.remove(account)
+        customer.accounts.remove(number)
 
         if (customer.accounts.isEmpty()) {
             customers.remove(customer)
@@ -59,25 +64,30 @@ class Bank {
     }
 
     fun newCustomer(name: String): Customer {
-        val newAccount = Account()
-        val newCustomer = Customer(name, newAccount)
+        val newNumber = createAccountAndNumber()
+        val newCustomer = Customer(name, newNumber)
         customers.add(newCustomer)
         return newCustomer
     }
 
-    fun balance(account: Account): Balance {
+    fun balance(number: AccountNumber): Balance {
+        val account = getAccountForNumber(number)
         return account.balance
     }
 
-    fun deposit(account: Account, amount: Money): Money {
+    fun deposit(number: AccountNumber, amount: Money): Money {
+        val account = getAccountForNumber(number)
         return account.deposit(amount)
     }
 
-    fun withdraw(account: Account, amount: Money): Money {
+    fun withdraw(number: AccountNumber, amount: Money): Money {
+        val account = getAccountForNumber(number)
         return account.withdraw(amount)
     }
 
-    fun transferBetweenAccounts(from: Account, to: Account, amount: Money): Money {
+    fun transferBetweenAccounts(fromNumber: AccountNumber, toNumber: AccountNumber, amount: Money): Money {
+        val from = getAccountForNumber(fromNumber)
+        val to = getAccountForNumber(toNumber)
         val withdrawnAmount = from.withdraw(amount)
         to.deposit(withdrawnAmount)
         // TODO: reporting
