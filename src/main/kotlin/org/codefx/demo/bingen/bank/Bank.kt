@@ -33,7 +33,7 @@ class Bank {
             println("!! CUSTOMER DOES NOT BELONG TO THIS BANK")
         }
 
-        val newAccount = Account()
+        val newAccount = Account(openingDeposit, limit)
         customer.accounts.add(newAccount)
         return newAccount
     }
@@ -74,7 +74,7 @@ class Bank {
     }
 
     fun withdraw(account: Account, amount: Money): Money {
-        return account.deposit(amount)
+        return account.withdraw(amount)
     }
 
     fun transferBetweenAccounts(from: Account, to: Account, amount: Money): Money {
@@ -86,7 +86,7 @@ class Bank {
 
     fun transferBetweenCustomers(from: Customer, to: Customer, amount: Money): Money {
         val fromAccount = from.defaultAccount
-        val toAccount = from.defaultAccount
+        val toAccount = to.defaultAccount
         return transferBetweenAccounts(fromAccount, toAccount, amount)
     }
 
