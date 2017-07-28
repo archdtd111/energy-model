@@ -1,11 +1,4 @@
-    package org.codefx.demo.bingen.zoo
-
-/*
- * TODO #8: Visit the zoo
- *
- * Create a `Visitor` interface with `Kid` and `Parent` implementations.
- * Come up with two methods on it, put some instances in a list and iterate over it.
- */
+package org.codefx.demo.bingen.zoo
 
 fun main(args: Array<String>) {
     val cats = listOf(Cat("Luna"), Cat("Mo"), Cat("Felix"))
@@ -19,5 +12,13 @@ fun main(args: Array<String>) {
     for (animal in animals) {
         println("${animal.name()} says '${animal.noise()}' and moves ${animal.move()}.")
     }
-}
 
+    println("\n------------------\n")
+
+    val visitors: List<Visitor> = listOf(Parent(), Parent(), Kid(), Parent(), Kid(), Kid())
+    for (visitor in visitors) {
+        visitor.watchAnimal(cats.get(0))
+        visitor.petAnimal(cats.get(0))
+    }
+
+}
