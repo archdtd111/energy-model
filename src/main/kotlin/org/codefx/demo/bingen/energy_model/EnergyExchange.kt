@@ -1,36 +1,36 @@
 package org.codefx.demo.bingen.energy_model
 
-class EnergyExchange(val households: List<Household>, val plants: List<PowerPlant>) {
+class EnergyExchange(val consumers: List<EnergyConsumer>, val producers: List<EnergyProducer>) {
 
-    val productionPerPlant: MutableMap<PowerPlant, Energy> = mutableMapOf()
+    val production: MutableMap<EnergyProducer, Energy> = mutableMapOf()
 
     fun simulationStep() {
-        for (houseHold in households) {
-            val order = houseHold.announceConsumption()
-            val produced = fulfillOrderWithSomePlant(order)
-            houseHold.consume(produced)
+        for (consumer in consumers) {
+            val order = consumer.announceConsumption()
+            val produced = fulfillOrderWithSomeProducer(order)
+            consumer.consume(produced)
         }
     }
 
-    fun fulfillOrderWithSomePlant(order: EnergyOrder): Energy {
-        for (plant in plants) {
-            if (plant.canFulfill(order)) {
-                return fulfillOrderWithPlant(order, plant)
+    fun fulfillOrderWithSomeProducer(order: EnergyOrder): Energy {
+        for (producer in producers) {
+            if (producer.canFulfill(order)) {
+                return fulfillOrderWithProducer(order, producer)
             }
         }
         return Energy(0)
     }
 
-    fun fulfillOrderWithPlant(order: EnergyOrder, plant: PowerPlant): Energy {
-        val energy = plant.fulfill(order)
-        if (productionPerPlant.containsKey(plant)) {
+    fun fulfillOrderWithProducer(order: EnergyOrder, producer: EnergyProducer): Energy {
+        val energy = producer.fulfill(order)
+        if (production.containsKey(producer)) {
             // add energy to existing amount
-            val producedEnergy: Energy = productionPerPlant.get(plant)!!
+            val producedEnergy: Energy = production.get(producer)!!
             val totalEnergy = producedEnergy.add(energy)
-            productionPerPlant.put(plant, totalEnergy)
+            production.put(producer, totalEnergy)
         } else {
-            // put plant with energy
-            productionPerPlant.put(plant, energy)
+            // put producer with energy
+            production.put(producer, energy)
         }
         return energy
     }

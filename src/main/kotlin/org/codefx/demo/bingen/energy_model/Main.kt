@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
 
     exchange.simulationStep()
 
-    writeProductionToCsv(exchange.productionPerPlant, "production.csv")
+    writeProductionToCsv(exchange.production, "production.csv")
 }
 
 private fun readHouseholdsFromCsv(fileName: String): List<Household> {
@@ -36,7 +36,7 @@ private fun readHouseholdsFromCsv(fileName: String): List<Household> {
     return households
 }
 
-private fun writeProductionToCsv(productionByPlant: Map<PowerPlant, Energy>, fileName: String) {
+private fun writeProductionToCsv(production: Map<EnergyProducer, Energy>, fileName: String) {
     val settings = CsvWriterSettings()
     settings.format.setLineSeparator("\n")
 
@@ -47,9 +47,9 @@ private fun writeProductionToCsv(productionByPlant: Map<PowerPlant, Energy>, fil
     val rows: MutableList<Array<Any>> = mutableListOf()
     var plantIndex = 0
 
-    for (plantAndProduction in productionByPlant) {
+    for (producerAndProduction in production) {
         plantIndex += 1
-        val production = plantAndProduction.value
+        val production = producerAndProduction.value
         val row: Array<Any> = arrayOf("#$plantIndex", production)
         rows.add(row)
     }
