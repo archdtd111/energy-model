@@ -8,9 +8,17 @@ import com.univocity.parsers.csv.CsvWriterSettings
 import org.codefx.demo.bingen.FileAccess
 
 fun main(args: Array<String>) {
+    val car = ElectricCar(20, 10)
+
     val households = readHouseholdsFromCsv("/households.csv")
+    val consumers: MutableList<EnergyConsumer> = mutableListOf(car)
+    consumers.addAll(households)
+
     val plants = listOf(PowerPlant(40), PowerPlant(20))
-    val exchange = EnergyExchange(households, plants)
+    val producers: MutableList<EnergyProducer> = mutableListOf(car)
+    producers.addAll(plants)
+
+    val exchange = EnergyExchange(consumers, producers)
 
     exchange.simulationStep()
 
