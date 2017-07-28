@@ -63,11 +63,16 @@ class Bank {
         return account.withdrawRemaining()
     }
 
-    fun newCustomer(name: String): Customer {
-        val newNumber = createAccountAndNumber()
+    fun newCustomer(name: String, openingDeposit: Money = Money(0), limit: Balance = Balance(0)): Customer {
+        val newNumber = createAccountAndNumber(openingDeposit, limit)
         val newCustomer = Customer(name, newNumber)
         customers.add(newCustomer)
         return newCustomer
+    }
+
+    fun limit(number: AccountNumber): Balance {
+        val account = getAccountForNumber(number)
+        return account.limit
     }
 
     fun balance(number: AccountNumber): Balance {
