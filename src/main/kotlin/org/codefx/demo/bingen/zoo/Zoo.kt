@@ -1,10 +1,6 @@
     package org.codefx.demo.bingen.zoo
 
 /*
- * TODO #7: Make noises
- *
- * Add a `noise()` method to `Animal` and call it in the loop in `main`.
- *
  * TODO #8: Visit the zoo
  *
  * Create a `Visitor` interface with `Kid` and `Parent` implementations.
@@ -21,7 +17,7 @@ fun main(args: Array<String>) {
 
     animals.addAll(fishes)
     for (animal in animals) {
-        println(animal.name() + " moves: " + animal.move())
+        println("${animal.name()} says '${animal.noise()}' and moves ${animal.move()}.")
     }
 }
 
@@ -30,6 +26,8 @@ interface Animal {
     fun name(): String
 
     fun move(): String
+
+    fun noise(): String
 
 }
 
@@ -41,6 +39,10 @@ class Cat(val name: String): Animal {
 
     override fun move(): String {
         return "prowl.."
+    }
+
+    override fun noise(): String {
+        return "meow"
     }
 
     fun lookCondescending(): String {
@@ -57,6 +59,10 @@ class Fish(val name: String): Animal {
 
     override fun move(): String {
         return "swim, swim"
+    }
+
+    override fun noise(): String {
+        return ""
     }
 
 }
