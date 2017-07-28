@@ -26,6 +26,10 @@ data class Energy(val amount: Int) : Comparable<Energy> {
         return Energy(reduction)
     }
 
+    fun add(energy: Energy): Energy {
+        return Energy(this.amount + energy.amount)
+    }
+
 }
 
 data class EnergyOrder(val amount: Int) : Comparable<EnergyOrder> {

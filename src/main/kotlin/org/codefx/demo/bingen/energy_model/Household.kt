@@ -2,7 +2,7 @@ package org.codefx.demo.bingen.energy_model
 
 import java.util.*
 
-class HouseHold(val maxConsumption: Int) {
+class Household(val maxConsumption: Int) {
 
     init {
         if (maxConsumption < 0) {
